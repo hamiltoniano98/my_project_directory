@@ -22,6 +22,9 @@ class Preguntas
     #[ORM\Column]
     private ?int $categoria = null;
 
+    #[ORM\OneToOne(mappedBy: 'respuesta', cascade: ['persist', 'remove'])]
+    private ?Respuestas $respuestas = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,23 @@ class Preguntas
     public function setCategoria(int $categoria): static
     {
         $this->categoria = $categoria;
+
+        return $this;
+    }
+
+    public function getRespuestas(): ?Respuestas
+    {
+        return $this->respuestas;
+    }
+
+    public function setRespuestas(Respuestas $respuestas): static
+    {
+        // set the owning side of the relation if necessary
+        if ($respuestas->getRespuesta() !== $this) {
+            $respuestas->setRespuesta($this);
+        }
+
+        $this->respuestas = $respuestas;
 
         return $this;
     }
