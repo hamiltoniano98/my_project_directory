@@ -23,7 +23,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     #[ORM\Column(length: 255, unique: true)]
-    private ?string $username = null;
+    private ?string $userioname = null;
 
     #[ORM\Column(length: 255, unique: true)]
     private ?string $foto = null;
@@ -133,5 +133,80 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getUserioname():?string
+    {
+        return $this->userioname;
+    }
+
+    public function setUserioname($userioname) :static
+    {
+        $this->userioname = $userioname;
+
+        return $this;
+    }
+
+    public function getFoto():?string
+    {
+        return $this->foto;
+    }
+
+    public function setFoto($foto):static
+    {
+        $this->foto = $foto;
+
+        return $this;
+    }
+
+    public function getPais():string
+    {
+        return $this->pais;
+    }
+
+    public function setPais($pais):static
+    {
+        $this->pais = $pais;
+
+        return $this;
+    }
+
+
+    public function getPuntuacion():?int
+    {
+        return $this->puntuacion;
+    }
+
+    public function setPuntuacion($puntuacion):static
+    {
+        $this->puntuacion = $puntuacion;
+
+        return $this;
+    }
+
+    public function getFecha_creacion():DateTime
+    {
+        return $this->fecha_creacion;
+    }
+
+
+    public function setFecha_creacion($fecha_creacion):static
+    {
+        $this->fecha_creacion = $fecha_creacion;
+
+        return $this;
+    }
+
+
+    public function getAge():?int
+    {
+        return $this->age;
+    }
+
+    public function setAge($age):static
+    {
+        $this->age = $age;
+
+        return $this;
     }
 }
