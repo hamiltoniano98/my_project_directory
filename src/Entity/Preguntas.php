@@ -25,6 +25,9 @@ class Preguntas
     #[ORM\OneToOne(mappedBy: 'respuesta', cascade: ['persist', 'remove'])]
     private ?Respuestas $respuestas = null;
 
+    #[ORM\ManyToOne(inversedBy: 'preguntas')]
+    private ?User $r = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -79,6 +82,18 @@ class Preguntas
         }
 
         $this->respuestas = $respuestas;
+
+        return $this;
+    }
+
+    public function getR(): ?User
+    {
+        return $this->r;
+    }
+
+    public function setR(?User $r): static
+    {
+        $this->r = $r;
 
         return $this;
     }

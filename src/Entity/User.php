@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -45,6 +47,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\OneToMany(mappedBy: 'r', targetEntity: Preguntas::class)]
+    private Collection $preguntas;
+
+    public function __construct()
+    {
+        $this->preguntas = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -206,6 +216,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAge($age):static
     {
         $this->age = $age;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Preguntas>
+     */
+    public function getPreguntas(): Collection
+    {
+        return $this->preguntas;
+    }
+
+    public function addPregunta(Preguntas $pregunta): static
+    {
+        if (!$this->preguntas->contains($pregunta)) {
+            $this->preguntas->add($pregunta);
+            $pregunta->setR($this);
+        }
+
+        return $this;
+    }
+
+    public function removePregunta(Preguntas $pregunta): static
+    {
+        if ($this->preguntas->removeElement($pregunta)) {
+            // set the owning side to null (unless already changed)
+            if ($pregunta->getR() === $this) {
+                $pregunta->setR(null);
+            }
+        }
 
         return $this;
     }
