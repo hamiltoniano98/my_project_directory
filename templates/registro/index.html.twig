@@ -8,13 +8,14 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/perez_hamilton/Documentos/Symfoni/my_project_directory/src/Controller/RegistroController.php'|file_link(0) }}">src/Controller/RegistroController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/perez_hamilton/Documentos/Symfoni/my_project_directory/templates/registro/index.html.twig'|file_link(0) }}">templates/registro/index.html.twig</a></code></li>
-    </ul>
+<div>
+    {{ form(formulario)}}
 </div>
+
+        {% for message in app.flashes('exito') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
 {% endblock %}

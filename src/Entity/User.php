@@ -27,19 +27,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, unique: true)]
     private ?string $userioname = null;
 
-    #[ORM\Column(length: 255, unique: true)]
+    #[ORM\Column(length: 255, unique: true, nullable: true)]
     private ?string $foto = null;
 
-    #[ORM\Column(length: 50, unique: true)]
+    #[ORM\Column(length: 50, unique: true, nullable: true)]
     private ?string $pais = null;
 
-    #[ORM\Column]
+    #[ORM\Column( nullable: true)]
     private ?int $puntuacion = null;
 
     #[ORM\Column]
-    private ?DateTime $fecha_creacion = null;
+    private array $fecha_creacion = [];
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $age = null;
 
     /**
@@ -194,13 +194,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getFecha_creacion():DateTime
+    public function getFecha_creacion():array
     {
         return $this->fecha_creacion;
     }
 
 
-    public function setFecha_creacion($fecha_creacion):static
+    public function setFecha_creacion(array $fecha_creacion):static
     {
         $this->fecha_creacion = $fecha_creacion;
 
